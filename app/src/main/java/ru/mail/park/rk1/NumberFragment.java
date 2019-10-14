@@ -13,14 +13,14 @@ import java.util.Locale;
 
 public class NumberFragment extends Fragment {
 
-    private final static String KEY = "lol";
+    private final static String NUMBER_TO_SHOW = "number";
     private Integer number;
 
     public static NumberFragment newInstance(Integer num) {
         NumberFragment myFragment = new NumberFragment();
 
         Bundle bundle = new Bundle();
-        bundle.putInt(KEY, num);
+        bundle.putInt(NUMBER_TO_SHOW, num);
 
         myFragment.setArguments(bundle);
 
@@ -34,7 +34,7 @@ public class NumberFragment extends Fragment {
         Bundle arguments = getArguments();
 
         if (arguments != null) {
-            number = arguments.getInt(KEY);
+            number = arguments.getInt(NUMBER_TO_SHOW);
         }
     }
 
