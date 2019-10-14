@@ -56,6 +56,6 @@ public class NumberFragment extends Fragment {
             textView.setTextColor(getResources().getColor(R.color.blue));
         }
 
-        textView.setText(String.format(Locale.ENGLISH, "%d", number));
+        textView.setText(String.valueOf(number));
     }
 }

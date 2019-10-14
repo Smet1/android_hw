@@ -1,7 +1,6 @@
 package ru.mail.park.rk1;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 
 public class NumbersAdapter extends RecyclerView.Adapter<NumbersAdapter.NumbersRecyclerViewHolder> {
@@ -63,7 +61,7 @@ public class NumbersAdapter extends RecyclerView.Adapter<NumbersAdapter.NumbersR
         }
 
         void bind(final Integer i, OnItemClickListener<Integer> onItemClickListener) {
-            number.setText(String.format(Locale.ENGLISH, "%d", i));
+            number.setText(String.valueOf(i));
 
             itemView.setOnClickListener(v -> onItemClickListener.onItemClick(i));
         }
