@@ -37,8 +37,10 @@ public class NumbersAdapter extends RecyclerView.Adapter<NumbersAdapter.NumbersR
 
     @Override
     public void onBindViewHolder(NumbersRecyclerViewHolder holder, int position) {
+        int red = holder.itemView.getResources().getColor(R.color.red);
+        int blue = holder.itemView.getResources().getColor(R.color.blue);
         holder.bind(data.get(position), this.onItemClickListener);
-        holder.number.setTextColor(position % 2 == 1 ? Color.RED : Color.BLUE);
+        holder.number.setTextColor(position % 2 == 1 ? red : blue);
     }
 
     @Override
