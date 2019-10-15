@@ -9,12 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.Locale;
-
 public class NumberFragment extends Fragment {
 
     private final static String NUMBER_TO_SHOW = "number";
-    private Integer number;
+    public Integer number;
 
     public static NumberFragment newInstance(Integer num) {
         NumberFragment myFragment = new NumberFragment();

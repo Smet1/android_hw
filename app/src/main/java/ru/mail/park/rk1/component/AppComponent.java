@@ -1,4 +1,4 @@
-package ru.mail.park.rk1.appComponent;
+package ru.mail.park.rk1.component;
 
 public class AppComponent {
     private int LastNumber = 0;

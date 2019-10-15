@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,28 +15,25 @@ import android.widget.Button;
 
 import java.util.Objects;
 
-import ru.mail.park.rk1.appComponent.AppComponent;
+import ru.mail.park.rk1.component.AppComponent;
 
 public class RecyclerFragment extends Fragment {
     private final static String KEY = "kek";
     private final static Integer DEFAULT = 100;
-    private int last = DEFAULT;
+    public int last = DEFAULT;
+    private final static String NUMBERS = "numbers";
 
 
     public static RecyclerFragment newInstance(int i) {
         RecyclerFragment myFragment = new RecyclerFragment();
 
         Bundle bundle = new Bundle();
+        bundle.putInt(KEY, i);
         myFragment.setArguments(bundle);
 
         myFragment.last = i;
 
         return myFragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Nullable
@@ -45,9 +43,23 @@ public class RecyclerFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
 
+        outState.putInt(NUMBERS, last);
+
+        Log.d("kek", "onSaveInstanceState RecyclerFragment");
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        Log.d("kek", "onActivityCreated RecyclerFragment");
+
+        View view = getView();
+
+        assert view != null;
         final Button button = view.findViewById(R.id.add_number);
         button.setOnClickListener(v -> {
             RecyclerView numbers = view.findViewById(R.id.numbers_list);
@@ -66,32 +78,10 @@ public class RecyclerFragment extends Fragment {
         numbers.setLayoutManager(new GridLayoutManager(getContext(),
                 getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ? 4 : 3));
         numbers.setAdapter(numbersAdapter);
-        numbers.setHasFixedSize(true);
 
 
         for (Integer i = 1; i <= AppComponent.getInstance().getLastNumber(); i++) {
             numbersAdapter.add(i);
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt(KEY, last);
-
-        MainActivity m = ((MainActivity) getActivity());
-        if (m != null) {
-            m.SetLastNumber(last);
-        }
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if (savedInstanceState != null) {
-            last = savedInstanceState.getInt(KEY);
-        } else {
-            last = DEFAULT;
         }
     }
 
