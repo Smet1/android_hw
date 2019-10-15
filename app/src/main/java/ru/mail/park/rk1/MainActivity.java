@@ -1,7 +1,6 @@
 package ru.mail.park.rk1;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -15,53 +14,34 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("kek", "onCreate MainActivity");
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        RecyclerFragment numbers = (RecyclerFragment) fragmentManager.findFragmentById(R.id.number_fragment);
-        if (numbers == null)
-            transaction.replace(R.id.container, RecyclerFragment.newInstance(LastNumber));
+        if (savedInstanceState == null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            RecyclerFragment numbers = (RecyclerFragment) fragmentManager.findFragmentById(R.id.number_fragment);
+            if (numbers == null)
+                transaction.replace(R.id.container, RecyclerFragment.newInstance(LastNumber));
 
-        transaction.commit();
+            transaction.commit();
+        }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment f = fragmentManager.getFragments().get(0);
-
-        if (f instanceof RecyclerFragment) {
-            RecyclerFragment rf = (RecyclerFragment) f;
-
-            outState.putInt(NUMBERS, rf.last);
-        } else if (f instanceof NumberFragment) {
-            NumberFragment rf = (NumberFragment) f;
-
-            outState.putInt(NUM, rf.number);
-        }
-
         Log.d("kek", "onSaveInstanceState MainActivity");
+
+        super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        LastNumber = savedInstanceState.getInt(NUMBERS);
-
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction transaction = fragmentManager.beginTransaction();
-//        RecyclerFragment numbers = (RecyclerFragment) fragmentManager.findFragmentById(R.id.number_fragment);
-//        if (numbers == null)
-//            transaction.replace(R.id.container, RecyclerFragment.newInstance(LastNumber));
-//
-//        transaction.commit();
         Log.d("kek", "onRestore MainActivity");
+
+        super.onRestoreInstanceState(savedInstanceState);
     }
 
     public void SetLastNumber(int i) {
