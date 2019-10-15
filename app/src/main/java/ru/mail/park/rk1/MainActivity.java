@@ -7,10 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
-    private int LastNumber = 0;
-    private final static String NUMBERS = "numbers";
-    private final static String NUM = "num";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             RecyclerFragment numbers = (RecyclerFragment) fragmentManager.findFragmentById(R.id.number_fragment);
             if (numbers == null)
-                transaction.replace(R.id.container, RecyclerFragment.newInstance(LastNumber));
+                transaction.replace(R.id.container, RecyclerFragment.newInstance());
 
             transaction.commit();
         }
@@ -42,9 +38,5 @@ public class MainActivity extends AppCompatActivity {
         Log.d("kek", "onRestore MainActivity");
 
         super.onRestoreInstanceState(savedInstanceState);
-    }
-
-    public void SetLastNumber(int i) {
-        LastNumber = i;
     }
 }

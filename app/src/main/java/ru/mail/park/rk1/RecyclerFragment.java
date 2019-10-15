@@ -15,8 +15,6 @@ import android.widget.Button;
 
 import java.util.Objects;
 
-import ru.mail.park.rk1.component.AppComponent;
-
 public class RecyclerFragment extends Fragment {
     private final static String KEY = "kek";
     private final static Integer DEFAULT = 100;
@@ -24,14 +22,14 @@ public class RecyclerFragment extends Fragment {
     private final static String NUMBERS = "numbers";
 
 
-    public static RecyclerFragment newInstance(int i) {
+    public static RecyclerFragment newInstance() {
         RecyclerFragment myFragment = new RecyclerFragment();
 
         Bundle bundle = new Bundle();
-        bundle.putInt(KEY, i);
+        bundle.putInt(KEY, DEFAULT);
         myFragment.setArguments(bundle);
 
-        myFragment.last = i;
+        myFragment.last = DEFAULT;
 
         return myFragment;
     }
@@ -44,18 +42,21 @@ public class RecyclerFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
+        Log.d("kek", "onSaveInstanceState RecyclerFragment");
         super.onSaveInstanceState(outState);
 
         outState.putInt(NUMBERS, last);
-
-        Log.d("kek", "onSaveInstanceState RecyclerFragment");
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
         Log.d("kek", "onActivityCreated RecyclerFragment");
+
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            last = savedInstanceState.getInt(NUMBERS);
+        }
+
 
         View view = getView();
 
@@ -69,7 +70,6 @@ public class RecyclerFragment extends Fragment {
             int newLen = adapter.getItemCount() + 1;
             adapter.add(newLen);
             last = newLen;
-            AppComponent.getInstance().setLastNumber(last);
         });
 
         NumbersAdapter numbersAdapter = new NumbersAdapter(getContext(), this::onItemClick);
@@ -80,18 +80,8 @@ public class RecyclerFragment extends Fragment {
         numbers.setAdapter(numbersAdapter);
 
 
-        for (Integer i = 1; i <= AppComponent.getInstance().getLastNumber(); i++) {
+        for (Integer i = 1; i <= last; i++) {
             numbersAdapter.add(i);
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        MainActivity m = ((MainActivity) getActivity());
-        if (m != null) {
-            m.SetLastNumber(last);
         }
     }
 
