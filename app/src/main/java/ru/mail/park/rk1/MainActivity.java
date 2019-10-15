@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             RecyclerFragment numbers = (RecyclerFragment) fragmentManager.findFragmentById(R.id.number_fragment);
             if (numbers == null)
-                transaction.replace(R.id.container, RecyclerFragment.newInstance());
+                transaction.replace(R.id.container, RecyclerFragment.newInstance(getResources().getInteger(R.integer.len)));
 
             transaction.commit();
         }

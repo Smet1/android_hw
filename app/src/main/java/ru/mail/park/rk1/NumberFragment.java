@@ -13,7 +13,7 @@ import android.widget.TextView;
 public class NumberFragment extends Fragment {
 
     private final static String NUMBER_TO_SHOW = "number";
-    public Integer number;
+    private Integer number;
 
     public static NumberFragment newInstance(Integer num) {
         NumberFragment myFragment = new NumberFragment();

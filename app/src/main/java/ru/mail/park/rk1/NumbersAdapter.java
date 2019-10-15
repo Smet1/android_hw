@@ -20,7 +20,7 @@ public class NumbersAdapter extends RecyclerView.Adapter<NumbersAdapter.NumbersR
     private final OnItemClickListener<Integer> onItemClickListener;
 
 
-    public NumbersAdapter(Context context, OnItemClickListener<Integer> onItemClickListener) {
+    NumbersAdapter(Context context, OnItemClickListener<Integer> onItemClickListener) {
         layoutInflater = LayoutInflater.from(context);
 
         this.data = new ArrayList<>();
@@ -46,7 +46,7 @@ public class NumbersAdapter extends RecyclerView.Adapter<NumbersAdapter.NumbersR
         return data.size();
     }
 
-    public void add(Integer newData) {
+    void add(Integer newData) {
         data.add(newData);
         notifyItemInserted(data.size() - 1);
     }

@@ -17,19 +17,18 @@ import java.util.Objects;
 
 public class RecyclerFragment extends Fragment {
     private final static String KEY = "kek";
-    private final static Integer DEFAULT = 100;
-    public int last = DEFAULT;
+    private int last;
     private final static String NUMBERS = "numbers";
 
 
-    public static RecyclerFragment newInstance() {
+    public static RecyclerFragment newInstance(int i) {
         RecyclerFragment myFragment = new RecyclerFragment();
 
         Bundle bundle = new Bundle();
-        bundle.putInt(KEY, DEFAULT);
+        bundle.putInt(KEY, i);
         myFragment.setArguments(bundle);
 
-        myFragment.last = DEFAULT;
+        myFragment.last = i;
 
         return myFragment;
     }
@@ -56,7 +55,6 @@ public class RecyclerFragment extends Fragment {
         if (savedInstanceState != null) {
             last = savedInstanceState.getInt(NUMBERS);
         }
-
 
         View view = getView();
 
