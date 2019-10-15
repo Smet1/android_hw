@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
+    private int Len;
+    private final String KEY = "key";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             RecyclerFragment numbers = (RecyclerFragment) fragmentManager.findFragmentById(R.id.number_fragment);
             if (numbers == null)
-                transaction.replace(R.id.container, RecyclerFragment.newInstance(getResources().getInteger(R.integer.len)));
+                transaction.replace(R.id.container, RecyclerFragment.newInstance(Len));
 
             transaction.commit();
         }
@@ -31,12 +33,18 @@ public class MainActivity extends AppCompatActivity {
         Log.d("kek", "onSaveInstanceState MainActivity");
 
         super.onSaveInstanceState(outState);
+
+        outState.putInt(KEY, Len);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         Log.d("kek", "onRestore MainActivity");
 
-        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null) {
+            Len = savedInstanceState.getInt(KEY);
+            return;
+        }
+        Len = getResources().getInteger(R.integer.len);
     }
 }
