@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
             Len = savedInstanceState.getInt(KEY);
             return;
         }
+
         Len = getResources().getInteger(R.integer.len);
     }
 }

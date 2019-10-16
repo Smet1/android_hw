@@ -19,6 +19,7 @@ public class RecyclerFragment extends Fragment {
     private final static String KEY = "kek";
     private int last;
     private final static String NUMBERS = "numbers";
+    private RecyclerView numbers;
 
 
     public static RecyclerFragment newInstance(int i) {
@@ -61,18 +62,18 @@ public class RecyclerFragment extends Fragment {
         assert view != null;
         final Button button = view.findViewById(R.id.add_number);
         button.setOnClickListener(v -> {
-            RecyclerView numbers = view.findViewById(R.id.numbers_list);
             NumbersAdapter adapter = (NumbersAdapter) numbers.getAdapter();
 
-            assert adapter != null;
-            int newLen = adapter.getItemCount() + 1;
-            adapter.add(newLen);
-            last = newLen;
+            if (adapter != null) {
+                int newLen = adapter.getItemCount() + 1;
+                adapter.add(newLen);
+                last = newLen;
+            }
         });
 
         NumbersAdapter numbersAdapter = new NumbersAdapter(getContext(), this::onItemClick);
 
-        RecyclerView numbers = view.findViewById(R.id.numbers_list);
+        numbers = view.findViewById(R.id.numbers_list);
         numbers.setLayoutManager(new GridLayoutManager(getContext(),
                 getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE ? 4 : 3));
         numbers.setAdapter(numbersAdapter);
